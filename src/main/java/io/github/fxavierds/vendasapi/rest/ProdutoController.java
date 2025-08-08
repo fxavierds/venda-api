@@ -2,11 +2,10 @@ package io.github.fxavierds.vendasapi.rest;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,5 +59,15 @@ public class ProdutoController {
 		entidadeProduto.setId(id);
 		repository.save(entidadeProduto);	
 		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Long id){
+		Optional<Produto> produtoExistente = repository.findById(id);
+		if(produtoExistente.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		repository.delete(produtoExistente.get());
+		return ResponseEntity.noContent().build();
 	}
 }
