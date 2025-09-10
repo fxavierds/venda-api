@@ -18,6 +18,19 @@ public class ClienteFormRequest {
 		super();
 	}
 
+	public ClienteFormRequest(Long id, LocalDate nascimento, String cpf, String nome, String endereco, String telefone,
+			String email, LocalDate dataCadastro) {
+		super();
+		this.id = id;
+		this.nascimento = nascimento;
+		this.cpf = cpf;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.telefone = telefone;
+		this.email = email;
+		this.dataCadastro = dataCadastro;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -81,9 +94,14 @@ public class ClienteFormRequest {
 	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
+
 	public Cliente clienteModel() {
 		return new Cliente(id, nascimento, cpf, nome, endereco, telefone, email, dataCadastro);
+	}
+
+	public static ClienteFormRequest fromModel(Cliente cliente) {
+		return new ClienteFormRequest(cliente.getId(), cliente.getNascimento(), cliente.getCpf(), cliente.getNome(),
+				cliente.getEndereco(), cliente.getTelefone(), cliente.getEmail(), cliente.getDataCadastro());
 	}
 
 }
