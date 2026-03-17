@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -125,6 +126,11 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [id=" + id + ", nascimento=" + nascimento + ", cpf=" + cpf + ", nome=" + nome + ", endereco="
 				+ endereco + ", telefone=" + telefone + ", email=" + email + ", dataCadastro=" + dataCadastro + "]";
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		setDataCadastro(LocalDate.now());
 	}
 	
 	

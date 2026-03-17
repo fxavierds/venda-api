@@ -2,7 +2,6 @@ package io.github.fxavierds.vendasapi.rest;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +33,8 @@ public class ClienteController {
 		return ResponseEntity.ok(ClienteFormRequest.fromModel(cliente));
 	}
 
-	@PutMapping
-	public ResponseEntity<Void> atualizarr(@PathVariable Long id, @RequestBody ClienteFormRequest request) {
+	@PutMapping("{id}")
+	public ResponseEntity<ClienteFormRequest> atualizarr(@PathVariable Long id, @RequestBody ClienteFormRequest request) {
 		Optional<Cliente> clienteExistente = repository.findById(id);
 		if (clienteExistente.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -44,7 +43,7 @@ public class ClienteController {
 		Cliente cliente = request.clienteModel();
 		cliente.setId(id);
 		repository.save(cliente);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(ClienteFormRequest.fromModel(cliente));
 	}
 
 	@GetMapping("{id}")

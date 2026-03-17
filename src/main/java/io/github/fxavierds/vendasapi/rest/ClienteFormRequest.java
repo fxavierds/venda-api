@@ -2,16 +2,20 @@ package io.github.fxavierds.vendasapi.rest;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.github.fxavierds.vendasapi.model.Cliente;
 
 public class ClienteFormRequest {
 	private Long id;
-	private LocalDate nascimento;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataNascimento;
 	private String cpf;
 	private String nome;
 	private String endereco;
 	private String telefone;
 	private String email;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro;
 
 	public ClienteFormRequest() {
@@ -22,7 +26,7 @@ public class ClienteFormRequest {
 			String email, LocalDate dataCadastro) {
 		super();
 		this.id = id;
-		this.nascimento = nascimento;
+		this.dataNascimento = nascimento;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.endereco = endereco;
@@ -39,12 +43,12 @@ public class ClienteFormRequest {
 		this.id = id;
 	}
 
-	public LocalDate getNascimento() {
-		return nascimento;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setNascimento(LocalDate nascimento) {
-		this.nascimento = nascimento;
+	public void setDataNascimento(LocalDate nascimento) {
+		this.dataNascimento = nascimento;
 	}
 
 	public String getCpf() {
@@ -96,7 +100,7 @@ public class ClienteFormRequest {
 	}
 
 	public Cliente clienteModel() {
-		return new Cliente(id, nascimento, cpf, nome, endereco, telefone, email, dataCadastro);
+		return new Cliente(id, dataNascimento, cpf, nome, endereco, telefone, email, dataCadastro);
 	}
 
 	public static ClienteFormRequest fromModel(Cliente cliente) {
