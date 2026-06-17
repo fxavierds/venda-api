@@ -27,7 +27,6 @@ public class ProdutoController {
 	
 	@GetMapping
 	public List<ProdutoFormRequest> getLista(){
-	
 		return repository.findAll().stream().map(p -> ProdutoFormRequest.fromModel(p)).toList();
 	}
 	
